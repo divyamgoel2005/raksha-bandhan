@@ -280,9 +280,18 @@
   color: #fbbf24;
   background: rgba(251, 191, 36, 0.12);
   border: 1px dashed rgba(251, 191, 36, 0.4);
-  padding: 4px 14px;
+  padding: 5px 16px;
   border-radius: 20px;
   letter-spacing: 0.03em;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.diya-tap-hint.done {
+  color: #a7f3d0;
+  background: rgba(16, 185, 129, 0.15);
+  border-color: rgba(16, 185, 129, 0.5);
+  box-shadow: 0 0 14px rgba(16, 185, 129, 0.3);
 }
 
 .rk-devanagari-box {

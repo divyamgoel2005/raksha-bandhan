@@ -1,26 +1,40 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Music, Sparkles } from 'lucide-react';
+import { Check, Sparkles } from 'lucide-react';
 import confetti from 'canvas-confetti';
 import { playSoundEffect, playDrone } from '../audio/synth';
 
 export default function GateScreen({ keepsake, onStart }) {
-  const handleStart = (e) => {
+  const [isDiyaUnlocked, setIsDiyaUnlocked] = useState(false);
+
+  const handleUnlockDiya = (e) => {
     e?.stopPropagation();
-    // Directly play audio in the user click event
+    if (!isDiyaUnlocked) {
+      setIsDiyaUnlocked(true);
+      playDrone();
+      playSoundEffect('aarti');
+      playSoundEffect('bell');
+      confetti({
+        particleCount: 45,
+        spread: 70,
+        origin: { y: 0.55 },
+        colors: ['#fbbf24', '#f59e0b', '#dc2626', '#ec4899', '#ffffff']
+      });
+    }
+  };
+
+  const handleBeginCelebration = (e) => {
+    e?.stopPropagation();
+    if (!isDiyaUnlocked) return;
     playDrone();
     playSoundEffect('shankh');
     confetti({
-      particleCount: 45,
-      spread: 70,
+      particleCount: 60,
+      spread: 80,
       origin: { y: 0.6 },
-      colors: ['#fbbf24', '#f59e0b', '#dc2626', '#ec4899', '#ffffff']
+      colors: ['#fbbf24', '#f59e0b', '#dc2626', '#10b981', '#ffffff']
     });
     onStart();
-  };
-
-  const handleScreenTap = () => {
-    playDrone();
   };
 
   return (
@@ -30,8 +44,6 @@ export default function GateScreen({ keepsake, onStart }) {
       animate={{ opacity: 1, scale: 1 }}
       exit={{ opacity: 0, y: -20 }}
       transition={{ duration: 0.8 }}
-      onClick={handleScreenTap}
-      onTouchStart={handleScreenTap}
     >
       <div className="rk-badge">
         <span>✨</span> Sacred Raksha Bandhan <span>✨</span>
@@ -42,9 +54,15 @@ export default function GateScreen({ keepsake, onStart }) {
       </h1>
 
       {/* Auspicious Sacred Diya Centerpiece */}
-      <div className="rk-gate-diya-wrap" onClick={handleStart} role="button" tabIndex={0} title="Tap to Open">
-        <div className="rk-inv-halo" />
-        <div className="rk-inv-flame">
+      <div 
+        className={`rk-gate-diya-wrap ${isDiyaUnlocked ? 'unlocked' : 'pending'}`} 
+        onClick={handleUnlockDiya} 
+        role="button" 
+        tabIndex={0} 
+        title={isDiyaUnlocked ? "Diya Unlocked" : "Tap Diya to Unlock"}
+      >
+        <div className={`rk-inv-halo ${isDiyaUnlocked ? 'active' : ''}`} />
+        <div className={`rk-inv-flame ${isDiyaUnlocked ? 'active' : ''}`}>
           <div className="rk-inv-flame-core" />
           <div className="rk-inv-flame-bloom" />
           <div className="rk-inv-flame-outer" />
@@ -68,7 +86,9 @@ export default function GateScreen({ keepsake, onStart }) {
             <ellipse cx="50" cy="24" rx="34" ry="7" fill="#b45309" />
           </svg>
         </div>
-        <div className="diya-tap-hint">Tap Diya to Unlock ✨</div>
+        <div className={`diya-tap-hint ${isDiyaUnlocked ? 'done' : ''}`}>
+          {isDiyaUnlocked ? "✨ Diya Unlocked & Blessed! ✨" : "👉 Tap Diya to Unlock ✨"}
+        </div>
       </div>
 
       {/* Auspicious Devanagari Mantra */}
@@ -80,8 +100,13 @@ export default function GateScreen({ keepsake, onStart }) {
         <span className="rk-devanagari-sub">May this sacred thread protect you always</span>
       </div>
 
-      <button className="rk-btn rk-gate-btn rk-btn-pulse" onClick={handleStart}>
-        Begin Sacred Celebration 🪔
+      {/* Action Button: Enabled only after unlocking Diya */}
+      <button 
+        className={`rk-btn rk-gate-btn ${isDiyaUnlocked ? 'rk-btn-pulse' : 'rk-btn-disabled'}`} 
+        disabled={!isDiyaUnlocked}
+        onClick={handleBeginCelebration}
+      >
+        {isDiyaUnlocked ? "Begin Sacred Celebration 🪔" : "Tap Diya Above to Unlock 🪔"}
       </button>
     </motion.div>
   );
