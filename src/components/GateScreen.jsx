@@ -41,10 +41,6 @@ export default function GateScreen({ keepsake, onStart }) {
         For {keepsake.receiverName || "Musu Didi"} <span className="heart-pulse">❤️</span>
       </h1>
 
-      <p className="rk-gate-subtitle">
-        A premium digital rakhi keepsake created especially for you by <strong className="sender-glow">{keepsake.senderName || "Divyam"}</strong>.
-      </p>
-
       {/* Auspicious Sacred Diya Centerpiece */}
       <div className="rk-gate-diya-wrap" onClick={handleStart} role="button" tabIndex={0} title="Tap to Open">
         <div className="rk-inv-halo" />
