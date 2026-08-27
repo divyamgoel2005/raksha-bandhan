@@ -302,12 +302,31 @@
   line-height: 1.7;
 }
 
-.rk-devanagari-sub {
-  display: block;
-  margin-top: 6px;
-  font-size: 0.8rem;
-  color: #94a3b8;
-  font-style: italic;
+.rk-gate-music-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(251, 191, 36, 0.1);
+  border: 1px solid rgba(251, 191, 36, 0.35);
+  color: #fde047;
+  font-size: 0.82rem;
+  font-weight: 600;
+  padding: 6px 16px;
+  border-radius: 20px;
+  margin: 14px auto 16px;
+  cursor: pointer;
+  box-shadow: 0 0 16px rgba(251, 191, 36, 0.2);
+  transition: all 0.2s ease;
+}
+
+.rk-gate-music-pill:hover {
+  background: rgba(251, 191, 36, 0.2);
+  transform: scale(1.04);
+}
+
+.music-pill-icon {
+  color: #fbbf24;
+  animation: pulse 1.5s infinite;
 }
 
 /* Primary Button */

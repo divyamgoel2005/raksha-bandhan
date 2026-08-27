@@ -1,11 +1,13 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import { Music, Sparkles } from 'lucide-react';
 import confetti from 'canvas-confetti';
 import { playSoundEffect, playDrone } from '../audio/synth';
 
 export default function GateScreen({ keepsake, onStart }) {
-  const handleStart = () => {
-    // Explicitly start audio inside direct user click event
+  const handleStart = (e) => {
+    e?.stopPropagation();
+    // Directly play audio in the user click event
     playDrone();
     playSoundEffect('shankh');
     confetti({
@@ -17,6 +19,10 @@ export default function GateScreen({ keepsake, onStart }) {
     onStart();
   };
 
+  const handleScreenTap = () => {
+    playDrone();
+  };
+
   return (
     <motion.div 
       className="rk-step rk-gate-step"
@@ -24,7 +30,8 @@ export default function GateScreen({ keepsake, onStart }) {
       animate={{ opacity: 1, scale: 1 }}
       exit={{ opacity: 0, y: -20 }}
       transition={{ duration: 0.8 }}
-      onClick={() => playDrone()}
+      onClick={handleScreenTap}
+      onTouchStart={handleScreenTap}
     >
       <div className="rk-badge">
         <span>✨</span> Sacred Raksha Bandhan <span>✨</span>
@@ -77,7 +84,13 @@ export default function GateScreen({ keepsake, onStart }) {
         <span className="rk-devanagari-sub">May this sacred thread protect you always</span>
       </div>
 
-      <button className="rk-btn rk-gate-btn" onClick={handleStart}>
+      {/* Music Ready Pill */}
+      <div className="rk-gate-music-pill" onClick={handleScreenTap}>
+        <Music size={14} className="music-pill-icon" />
+        <span>Tenu Sang Rakhna 🎵 (Tap anywhere to play)</span>
+      </div>
+
+      <button className="rk-btn rk-gate-btn rk-btn-pulse" onClick={handleStart}>
         Begin Sacred Celebration 🪔
       </button>
     </motion.div>
