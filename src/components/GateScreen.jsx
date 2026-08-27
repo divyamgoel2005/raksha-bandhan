@@ -84,12 +84,6 @@ export default function GateScreen({ keepsake, onStart }) {
         <span className="rk-devanagari-sub">May this sacred thread protect you always</span>
       </div>
 
-      {/* Music Ready Pill */}
-      <div className="rk-gate-music-pill" onClick={handleScreenTap}>
-        <Music size={14} className="music-pill-icon" />
-        <span>Tenu Sang Rakhna 🎵 (Tap anywhere to play)</span>
-      </div>
-
       <button className="rk-btn rk-gate-btn rk-btn-pulse" onClick={handleStart}>
         Begin Sacred Celebration 🪔
       </button>
