@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🪷</text></svg>" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>For Musu Didi ❤️ - Raksha Bandhan Keepsake</title>
+    <meta name="description" content="A premium digital rakhi keepsake created especially for you by Divyam. Open to unlock your memories!" />
+    <meta property="og:title" content="For Musu Didi ❤️" />
+    <meta property="og:description" content="A premium digital rakhi keepsake created especially for you by Divyam. Open to unlock your memories!" />
+    <meta property="og:image" content="/images/memory-1.jpeg" />
+    <meta name="theme-color" content="#030014" />
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500;600;700&family=Great+Vibes&family=Inter:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Rozha+One&family=Yatra+One&display=swap" rel="stylesheet">
+  </head>
+  <body>
+    <!-- Persistent Native HTML5 Audio Tag for guaranteed mobile & desktop playback -->
+    <audio id="rk-bg-audio" src="/Tenu-Sang-Rakhna-trimmed.mp3" loop preload="auto" playsinline webkit-playsinline></audio>
+
+    <div id="root"></div>
+
+    <script>
+      (function() {
+        function startAudio() {
+          var el = document.getElementById('rk-bg-audio');
+          if (el) {
+            el.volume = 0.75;
+            var p = el.play();
+            if (p && typeof p.then === 'function') {
+              p.then(function() {
+                removeTriggers();
+              }).catch(function() {});
+            }
+          }
+        }
+
+        function removeTriggers() {
+          ['click', 'touchstart', 'touchend', 'pointerdown', 'mousedown', 'keydown', 'scroll'].forEach(function(ev) {
+            window.removeEventListener(ev, startAudio, true);
+            document.removeEventListener(ev, startAudio, true);
+          });
+        }
+
+        ['click', 'touchstart', 'touchend', 'pointerdown', 'mousedown', 'keydown', 'scroll'].forEach(function(ev) {
+          window.addEventListener(ev, startAudio, { capture: true, passive: true });
+          document.addEventListener(ev, startAudio, { capture: true, passive: true });
+        });
+
+        document.addEventListener('DOMContentLoaded', startAudio);
+        window.addEventListener('load', startAudio);
+        startAudio();
+      })();
+    </script>
+
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>
